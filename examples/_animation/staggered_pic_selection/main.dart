@@ -59,7 +59,7 @@ class PhotoCheck extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.all(const Radius.circular(16.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       ),
       child: const Icon(
         Icons.check,
@@ -71,7 +71,7 @@ class PhotoCheck extends StatelessWidget {
 }
 
 class PhotoItem extends StatefulWidget {
-  PhotoItem({
+  const PhotoItem({
     Key? key,
     required this.photo,
     this.color,
@@ -147,7 +147,7 @@ class _PhotoItemState extends State<PhotoItem> with TickerProviderStateMixin {
     _removeCheckAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _replaceController,
-        curve: Interval(0.0, 0.25, curve: Curves.easeIn),
+        curve: const Interval(0.0, 0.25, curve: Curves.easeIn),
       ),
     );
   }
@@ -163,8 +163,10 @@ class _PhotoItemState extends State<PhotoItem> with TickerProviderStateMixin {
   void didUpdateWidget(PhotoItem oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.photo != oldWidget.photo)
+    if (widget.photo != oldWidget.photo) {
       _replace(oldWidget.photo, widget.photo);
+    }
+
     if (widget.selected != oldWidget.selected) _select();
   }
 
@@ -182,17 +184,19 @@ class _PhotoItemState extends State<PhotoItem> with TickerProviderStateMixin {
         _selectController.value = 0.0;
       });
     } on TickerCanceled {
-      print('canceled!'); //never reached...
+      // This is never reached...
     }
   }
 
   void _select() {
-    if (widget.selected)
+    if (widget.selected) {
       _selectController.forward();
-    else
+    } else {
       _selectController.reverse();
+    }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
@@ -237,7 +241,7 @@ class _PhotoItemState extends State<PhotoItem> with TickerProviderStateMixin {
                             alignment: Alignment.topRight,
                             child: Text(
                               widget.photo.id.toString(),
-                              style: TextStyle(color: Colors.green),
+                              style: const TextStyle(color: Colors.green),
                             ),
                           ),
                         ),
@@ -268,6 +272,8 @@ class _PhotoItemState extends State<PhotoItem> with TickerProviderStateMixin {
 }
 
 class ImagesDemo extends StatefulWidget {
+  const ImagesDemo({Key? key}) : super(key: key);
+
   @override
   _ImagesDemoState createState() => _ImagesDemoState();
 }
@@ -347,14 +353,14 @@ class _ImagesDemoState extends State<ImagesDemo>
         title: const Text('Images Demo'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: _removeSelectedPhoto,
           ),
         ],
       ),
       body: SizedBox.expand(
         child: ListView.builder(
-          padding: EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4.0),
           itemExtent: _photoBlockHeight,
           itemCount: (allPhotos.length / photoBlockFrameCount).floor(),
           itemBuilder: (BuildContext context, int blockIndex) {
@@ -367,5 +373,9 @@ class _ImagesDemoState extends State<ImagesDemo>
 }
 
 void main() {
-  runApp(MaterialApp(home: ImagesDemo()));
+  runApp(
+    const MaterialApp(
+      home: ImagesDemo(),
+    ),
+  );
 }

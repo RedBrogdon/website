@@ -16,11 +16,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 class Photo extends StatelessWidget {
-  Photo({Key? key, required this.photo, this.onTap}) : super(key: key);
+  const Photo({Key? key, required this.photo, this.onTap}) : super(key: key);
 
   final String photo;
   final VoidCallback? onTap;
 
+  @override
   Widget build(BuildContext context) {
     return Material(
       // Slightly opaque color appears where the image has transparency.
@@ -41,7 +42,7 @@ class Photo extends StatelessWidget {
 }
 
 class RadialExpansion extends StatelessWidget {
-  RadialExpansion({
+  const RadialExpansion({
     Key? key,
     required this.maxRadius,
     this.child,
@@ -49,7 +50,7 @@ class RadialExpansion extends StatelessWidget {
         super(key: key);
 
   final double maxRadius;
-  final clipRectSize;
+  final double clipRectSize;
   final Widget? child;
 
   @override
@@ -69,9 +70,11 @@ class RadialExpansion extends StatelessWidget {
 }
 
 class RadialExpansionDemo extends StatelessWidget {
-  static const double kMinRadius = 32.0;
-  static const double kMaxRadius = 128.0;
-  static const opacityCurve =
+  const RadialExpansionDemo({Key? key}) : super(key: key);
+
+  static double kMinRadius = 32.0;
+  static double kMaxRadius = 128.0;
+  static Interval opacityCurve =
       const Interval(0.0, 0.75, curve: Curves.fastOutSlowIn);
 
   static RectTween _createRectTween(Rect? begin, Rect? end) {
@@ -107,7 +110,7 @@ class RadialExpansionDemo extends StatelessWidget {
               ),
               Text(
                 description,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 textScaleFactor: 3.0,
               ),
               const SizedBox(height: 16.0),
@@ -120,7 +123,7 @@ class RadialExpansionDemo extends StatelessWidget {
 
   Widget _buildHero(
       BuildContext context, String imageName, String description) {
-    return Container(
+    return SizedBox(
       width: kMinRadius * 2.0,
       height: kMinRadius * 2.0,
       child: Hero(
@@ -179,5 +182,9 @@ class RadialExpansionDemo extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(home: RadialExpansionDemo()));
+  runApp(
+    const MaterialApp(
+      home: RadialExpansionDemo(),
+    ),
+  );
 }

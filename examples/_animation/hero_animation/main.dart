@@ -23,6 +23,7 @@ class PhotoHero extends StatelessWidget {
   final VoidCallback? onTap;
   final double width;
 
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
@@ -44,6 +45,9 @@ class PhotoHero extends StatelessWidget {
 }
 
 class HeroAnimation extends StatelessWidget {
+  const HeroAnimation({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     timeDilation = 10.0; // 1.0 means normal animation speed.
 
@@ -85,5 +89,9 @@ class HeroAnimation extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(home: HeroAnimation()));
+  runApp(
+    const MaterialApp(
+      home: HeroAnimation(),
+    ),
+  );
 }

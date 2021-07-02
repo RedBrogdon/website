@@ -22,7 +22,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.0,
               0.100,
               curve: Curves.ease,
@@ -35,7 +35,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.125,
               0.250,
               curve: Curves.ease,
@@ -45,7 +45,7 @@ class StaggerAnimation extends StatelessWidget {
         height = Tween<double>(begin: 50.0, end: 150.0).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.250,
               0.375,
               curve: Curves.ease,
@@ -58,7 +58,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.250,
               0.375,
               curve: Curves.ease,
@@ -71,7 +71,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.375,
               0.500,
               curve: Curves.ease,
@@ -84,7 +84,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
+            curve: const Interval(
               0.500,
               0.750,
               curve: Curves.ease,
@@ -136,6 +136,8 @@ class StaggerAnimation extends StatelessWidget {
 }
 
 class StaggerDemo extends StatefulWidget {
+  const StaggerDemo({Key? key}) : super(key: key);
+
   @override
   _StaggerDemoState createState() => _StaggerDemoState();
 }
@@ -198,5 +200,9 @@ class _StaggerDemoState extends State<StaggerDemo>
 }
 
 void main() {
-  runApp(MaterialApp(home: StaggerDemo()));
+  runApp(
+    const MaterialApp(
+      home: StaggerDemo(),
+    ),
+  );
 }

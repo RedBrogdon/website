@@ -11,13 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 class Photo extends StatelessWidget {
-  Photo({Key? key, required this.photo, this.color, this.onTap})
+  const Photo({Key? key, required this.photo, this.color, this.onTap})
       : super(key: key);
 
   final String photo;
   final Color? color;
   final VoidCallback? onTap;
 
+  @override
   Widget build(BuildContext context) {
     return Material(
       // Slightly opaque color appears where the image has transparency.
@@ -35,7 +36,7 @@ class Photo extends StatelessWidget {
 }
 
 class RadialExpansion extends StatelessWidget {
-  RadialExpansion({
+  const RadialExpansion({
     Key? key,
     required this.maxRadius,
     this.child,
@@ -43,7 +44,7 @@ class RadialExpansion extends StatelessWidget {
         super(key: key);
 
   final double maxRadius;
-  final clipRectExtent;
+  final double clipRectExtent;
   final Widget? child;
 
   @override
@@ -66,9 +67,11 @@ class RadialExpansion extends StatelessWidget {
 }
 
 class RadialExpansionDemo extends StatelessWidget {
-  static const double kMinRadius = 32.0;
-  static const double kMaxRadius = 128.0;
-  static const opacityCurve =
+  const RadialExpansionDemo({Key? key}) : super(key: key);
+
+  static double kMinRadius = 32.0;
+  static double kMaxRadius = 128.0;
+  static Interval opacityCurve =
       const Interval(0.0, 0.75, curve: Curves.fastOutSlowIn);
 
   static RectTween _createRectTween(Rect? begin, Rect? end) {
@@ -102,7 +105,7 @@ class RadialExpansionDemo extends StatelessWidget {
 
   Widget _buildHero(
       BuildContext context, String imageName, String description) {
-    return Container(
+    return SizedBox(
       width: kMinRadius * 2.0,
       height: kMinRadius * 2.0,
       child: Hero(
@@ -119,13 +122,14 @@ class RadialExpansionDemo extends StatelessWidget {
                       Animation<double> animation,
                       Animation<double> secondaryAnimation) {
                     return AnimatedBuilder(
-                        animation: animation,
-                        builder: (BuildContext context, Widget? child) {
-                          return Opacity(
-                            opacity: opacityCurve.transform(animation.value),
-                            child: _buildPage(context, imageName, description),
-                          );
-                        });
+                      animation: animation,
+                      builder: (BuildContext context, Widget? child) {
+                        return Opacity(
+                          opacity: opacityCurve.transform(animation.value),
+                          child: _buildPage(context, imageName, description),
+                        );
+                      },
+                    );
                   },
                 ),
               );
@@ -161,5 +165,9 @@ class RadialExpansionDemo extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(home: RadialExpansionDemo()));
+  runApp(
+    const MaterialApp(
+      home: RadialExpansionDemo(),
+    ),
+  );
 }
