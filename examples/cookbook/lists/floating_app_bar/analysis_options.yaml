@@ -3,3 +3,8 @@
 # overrides for individual lints.
 
 include: ../../../analysis_options.yaml
+
+linter:
+  rules:
+    prefer_const_constructors: false
+    prefer_const_literals_to_create_immutables: false
