@@ -48,9 +48,10 @@ class DemoLocalizations {
   DemoLocalizations(this.localeName);
 
   static Future<DemoLocalizations> load(Locale locale) {
-    final String name = locale.countryCode == null || locale.countryCode!.isEmpty
-        ? locale.languageCode
-        : locale.toString();
+    final String name =
+        locale.countryCode == null || locale.countryCode!.isEmpty
+            ? locale.languageCode
+            : locale.toString();
     final String localeName = Intl.canonicalizedLocale(name);
 
     return initializeMessages(localeName).then((_) {
@@ -75,20 +76,24 @@ class DemoLocalizations {
 }
 // #enddocregion DemoLocalizations
 
-class DemoLocalizationsDelegate extends LocalizationsDelegate<DemoLocalizations> {
+class DemoLocalizationsDelegate
+    extends LocalizationsDelegate<DemoLocalizations> {
   const DemoLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
 
   @override
-  Future<DemoLocalizations> load(Locale locale) => DemoLocalizations.load(locale);
+  Future<DemoLocalizations> load(Locale locale) =>
+      DemoLocalizations.load(locale);
 
   @override
   bool shouldReload(DemoLocalizationsDelegate old) => false;
 }
 
 class DemoApp extends StatelessWidget {
+  const DemoApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,30 +108,33 @@ class DemoApp extends StatelessWidget {
 }
 
 class Demo extends StatelessWidget {
+  const Demo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 // #docregion MaterialAppTitleExample
     return MaterialApp(
-      onGenerateTitle: (BuildContext context) => DemoLocalizations.of(context).title,
+      onGenerateTitle: (BuildContext context) =>
+          DemoLocalizations.of(context).title,
 // #enddocregion MaterialAppTitleExample
-      localizationsDelegates: [
-        const DemoLocalizationsDelegate(),
+      localizationsDelegates: const [
+        DemoLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('en', ''),
-        const Locale('es', ''),
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('es', ''),
       ],
       // Watch out: MaterialApp creates a Localizations widget
       // with the specified delegates. DemoLocalizations.of()
       // will only find the app's Localizations widget if its
       // context is a child of the app.
-      home: DemoApp(),
+      home: const DemoApp(),
     );
   }
 }
 
 void main() {
-  runApp(Demo());
+  runApp(const Demo());
 }
